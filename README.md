@@ -11,4 +11,4 @@ execute the following:
 export FLASK_APP=app.py 
 flask run
 
-Run in browser: 
+Run in browser: http://127.0.0.1:5000
