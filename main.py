@@ -1,8 +1,12 @@
+import os
+import logging
 import json
 from google.cloud import secretmanager
 import twilio
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
+from twilio import rest
+from twilio.twiml import messaging_response
 from flask import Flask, request, render_template
 import pickle
 import numpy as np
@@ -159,3 +163,8 @@ def output():
 
         except ValueError:
             return "Please Enter Valid Values"
+        
+if __name__ == '__main__':
+    # This is used when running locally. Gunicorn is used to run the
+    # application on Google App Engine. See entrypoint in app.yaml.
+    app.run(host='127.0.0.1', port=8080, debug=True)
