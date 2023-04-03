@@ -14,7 +14,7 @@ model = pickle.load(open('model.pkl', 'rb'))
 client = secretmanager.SecretManagerServiceClient()
 
 # Retrieves the latest version of the secret
-response = client.access_secret_version(name="projects/my-project/secrets/my-credentials/versions/latest")
+response = client.access_secret_version(name="projects/395051728838/secrets/my-credentials/versions/latest")
 
 # Extracts the payload
 payload = response.payload.data.decode("UTF-8")
