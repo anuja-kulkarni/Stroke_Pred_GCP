@@ -1,7 +1,8 @@
 import os
 import logging
 import json
-from google.cloud import secretmanager
+#from google.cloud import secretmanager
+from google.cloud import storage
 import twilio
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
@@ -12,25 +13,29 @@ import pickle
 import numpy as np
 
 app = Flask(__name__)
-model = pickle.load(open('model.pkl', 'rb'))
 
-# Instantiates a client
-client = secretmanager.SecretManagerServiceClient()
+# create a client object to interact with the storage bucket
+client = storage.Client()
 
-# Retrieves the latest version of the secret
-response = client.access_secret_version(name="projects/395051728838/secrets/my-credentials/versions/latest")
+# specify the bucket and file name of the model.pkl file
+bucket_name = 'cloud-ai-platform-92295410-070a-449f-89d7-c6cd2ed9a7b1'
+blob_name = 'model.pkl'
 
-# Extracts the payload
-payload = response.payload.data.decode("UTF-8")
+# get a reference to the bucket and blob objects
+bucket = client.get_bucket(bucket_name)
+blob = bucket.blob(blob_name)
 
-# Parse the payload as a dictionary
-secrets = json.loads(payload)
+# download the model.pkl file from the storage bucket
+model_bytes = blob.download_as_bytes()
+
+# load the model.pkl file as a Python object
+model = pickle.loads(model_bytes)
+
 
 # Access the values by key
 twilio_acct_sid = secrets['TWILIO_ACCT_SID']
 auth_token = secrets['TWILIO_AUTH_TOKEN']
 verify_sid = secrets['TWILIO_MSG_SID']
-# app.run(debug=True)
 
 @app.route("/")
 def index():
@@ -40,12 +45,12 @@ def index():
 def send_sms(phone_num, message):
     client = Client(twilio_acct_sid, auth_token)
 
-    message1 = client.messages.create(
+    real_msg = client.messages.create(
         messaging_service_sid=verify_sid,
         body=message,
         to=phone_num
     )
-    print(message1.sid)
+    print(real_msg)
 
 
 @app.route("/output", methods=["POST"])
