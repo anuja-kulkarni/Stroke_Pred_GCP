@@ -20,6 +20,9 @@ gcloud init
 pip install -r requirements.txt
 export PROJECT_ID=[YOUR_PROJECT_ID]
 
+*Only if taking model from bucket : Set up service account and give permission to service account for the bucket
+Refer to these steps here for any queries: https://www.cloudskillsboost.google/focuses/3339?parent=catalog
+
 gcloud config set app/cloud_build_timeout 1000
 gcloud app deploy --version 11
 
