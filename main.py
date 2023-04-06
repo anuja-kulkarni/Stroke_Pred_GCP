@@ -1,7 +1,6 @@
 import os
 import logging
 import json
-#from google.cloud import secretmanager
 import twilio
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
@@ -16,7 +15,6 @@ import numpy as np
 twilio_acct_sid = os.environ['TWILIO_ACCT_SID']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
 verify_sid = os.environ['TWILIO_MSG_SID']
-# app.run(debug=True)
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
