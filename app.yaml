@@ -1,7 +1,12 @@
-runtime: python39
+runtime: python
 env: flex
 entrypoint: gunicorn -b :$PORT main:app
 runtime_config:
-  python_version: 3.9.12
+  python_version: 3.7
+
+env_variables:
+    TWILIO_ACCT_SID: ACcaf6497fc6f9da0b7c157e92259cc2eb
+    TWILIO_AUTH_TOKEN: 82540eb5063a7806d8cebd9cd6131297
+    TWILIO_MSG_SID: MG1e13ffd03a2b45eaf7c101daa9a9ac92
   
 
