@@ -1,6 +1,6 @@
-certifi==2019.11.28
-Click==7.0
-Flask==1.1.2; python_version=='3.9.12'
+certifi
+Click
+Flask==1.1.2; python_version=='3.7'
 gunicorn==19.9.0
 itsdangerous==1.1.0
 Jinja2==2.10.1
@@ -15,3 +15,6 @@ cloudpickle>=0.6.0
 scikit-learn>=0.22.0
 joblib==0.14.0
 twilio==7.17.0
+google-cloud-storage==1.42.0
+
+
