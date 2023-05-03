@@ -1,4 +1,3 @@
-# Stroke-Prediction1
 
 To run the app in local environment:
 
